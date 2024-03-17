@@ -41,6 +41,7 @@ public class TaskService {
         return TaskResponse.builder()
             .id(task.getId())
             .detail(task.getDetail())
+            .isCompleted(task.getIsCompleted())
             .build();            
     }
 
@@ -72,7 +73,7 @@ public class TaskService {
     }
 
     @Transactional
-    public List<TaskResponse> listIncomplete(boolean status){
+    public List<TaskResponse> listTask(boolean status){
         List<Task> task = taskRepository.findAllByIsCompleted(status);
 
         return task.stream().map(this::toTaskResponseUpdate).toList();

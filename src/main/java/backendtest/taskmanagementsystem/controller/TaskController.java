@@ -3,6 +3,7 @@ package backendtest.taskmanagementsystem.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,12 +46,12 @@ public class TaskController {
     }
 
     @GetMapping(
-        path = "/api/list/incomplete",
+        path = "/api/list/{isCompleted}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<List<TaskResponse>> listIncomplete(){
+    public WebResponse<List<TaskResponse>> listTask(@PathVariable("isCompleted") boolean isCompleted){
 
-        List<TaskResponse> taskResponse = taskService.listIncomplete(false);
+        List<TaskResponse> taskResponse = taskService.listTask(isCompleted);
         return WebResponse.<List<TaskResponse>>builder().data(taskResponse).build();
     }
 
